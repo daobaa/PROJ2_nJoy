@@ -14,7 +14,7 @@ body{
     background-color: #c3ebff;
 }
 a{
-    display: inline-block;
+    display: inline;
     width: auto;
     text-decoration: none;
     color: inherit;
@@ -35,10 +35,16 @@ a{
 .header-links{
     float: right;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     height: 100px;
 }
-.header-links h3{
+.header-links a{
     margin: 20px;
+    text-decoration: none;
+    color: inherit;
+}
+.header-links h3{
+    margin: 0;
 }
