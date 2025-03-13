@@ -4,21 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/register.css">
+    <script src="../js/register.js" defer></script>
     <title>Registrarse</title>
 </head>
 <body>
-    <div class="main-header">
-        <a href="index.html">
-            <div class="header-logo">
-                <img id="logo" src="../img/logo.png" alt="logo-njoy">
-                <h1>nJoy</h1>
+    <div class="background">
+        <div class="major">
+            <a href="index.html">
+                <img src="../img/logo.png" alt="logo">
+            </a>
+            <div class="register_case">
+                <form id="regForm">
+                    <div class="reg_module">
+                        <label for="user">Nombre de usuario: </label>
+                        <input type="text" id="user" required/>
+                    </div>
+                    <div class="reg_module">
+                        <label for="fullname">Nombre completo: </label>
+                        <input type="text" id="fullname" required/>
+                    </div>
+                    <div class="reg_module">
+                        <label for="passwd">Contraseña: </label>
+                        <input type="password" id="passwd" required/>
+                    </div>
+                    <div class="reg_module">
+                        <label for="confirm_passwd"> Confirmar contraseña: </label>
+                        <input type="password" id="confirm_passwd" required/>
+                    </div>
+                    <button type="submit" id="butt_register">Registrarse</button>
+                </form>
             </div>
-        </a>
-        <div class="header-links">
-            <a href="conciertos.html"><h3>Conciertos</h3></a>
-            <a href="shows.html"><h3>Shows</h3></a>
-            <a href="log_in.html"><h3>Iniciar Sesión</h3></a>
-            <a href="register.html"><h3>Registrarse</h3></a>
+            
         </div>
     </div>
 </body>
