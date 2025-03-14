@@ -1,5 +1,5 @@
 // document.addEventListener("DOMContentLoaded", function () {
-//     fetch("http://127.0.0.1:8000/usuarios/register") /* Falta implementar */
+//     fetch("http://127.0.0.1:8000/usuarios/login") /* Falta implementar */
 //     .then(response =>{
 //         if (!response.ok) {
 //             throw new Error("Error a la resposta del servidor");
@@ -15,23 +15,10 @@
 //     });
 // });
 document.addEventListener("DOMContentLoaded", function() {
-    const form = document.getElementById("regForm");
-    const password = document.getElementById("passwd");
-    const confirmPassword = document.getElementById("confirm_passwd");
     const backLink = document.getElementById("backLink");
 
     backLink.addEventListener("click", function(event) {
         event.preventDefault();
         window.location.href = "../html/index.html";
-    });
-
-    form.addEventListener("submit", function(event) {
-        if(password.value !== confirmPassword.value) {
-            event.preventDefault();
-            alert("Las contraseñas no coinciden. Intentalo de nuevo.");
-            confirmPassword.focus();
-        } else {
-            alert("¡se ha registrado con exito!");
-        }
     });
 });

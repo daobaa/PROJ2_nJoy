@@ -5,21 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/log_in.css">
-    <script src="../js/log_in.js" async></script>
+    <script src="../js/log_in.js" defer></script>
     <title>Iniciar Sesión</title>
 </head>
 <body>
     <div class="background">
-        <div class="test">
-            <img src="../img/logo.png" alt="logo">
-            <label for="user">Nombre de usuario: </label>
-            <input type="text" id="user" />
-            <label for="fullname">Nombre completo: </label>
-            <input type="text" id="fullname"></input>
-            <label for="passwd">Contraseña: </label>
-            <input type="password" id="passwd">
-            <label for="confirm_passwd"> Confirmar contraseña: </label>
-            <input type="password" id="confirm_passwd">
+        <div class="major">
+            <a href="index.html">
+                <img src="../img/logo.png" alt="logo">
+            </a>
+            <div class="register_case">
+                <form id="regForm">
+                    <div class="reg_module">
+                        <label for="user">Usuario: </label>
+                        <input type="text" id="user" required/>
+                    </div>
+                    <div class="reg_module">
+                        <label for="passwd">Contraseña: </label>
+                        <input type="password" id="passwd" required/>
+                    </div>
+                    <button type="submit" id="butt_login">Iniciar Sesión</button>
+                </form>
+                <a href="#" id="backLink">&lt; Volver</a>
+            </div>
         </div>
     </div>
 </body>
