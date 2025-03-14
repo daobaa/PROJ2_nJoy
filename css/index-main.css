@@ -1,3 +1,43 @@
 .highlight h3{
-    letter-spacing: 10px;
+    letter-spacing: 15px;
+}
+.main-body{
+    padding: 0;
+    width: 100%;
+    margin: 0;
+}
+.main-body-center img{
+    margin: 0;
+    padding: 0;
+    display: block;
+    height: 400px;
+    width: 100%;
+}
+.concerts-display{
+    background-color: #DAFDBA;
+    height: 200px;  
+}
+.concerts-block{
+    display: flex;
+    width: 80%;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+.concert-first{
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: aquamarine;
+}
+.concert-carrusel{
+    width: 70%;
+    overflow: hidden;
+    position: relative;
+    background-color: aqua;
+}
+.slide{
+    width: 100%;
+    display: none;
 }
