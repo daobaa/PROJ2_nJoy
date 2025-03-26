@@ -9,29 +9,33 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
         document.getElementById("user").value = data.user;
         document.getElementById("fullname").value = data.ncompleto;
-        document.getElementById("").value = data.fnacimiento;
-        document.getElementById("passwd").value = contrasena;
+        document.getElementById("bday").value = data.fnacimiento;
+        document.getElementById("mail").value = data.email;
+        document.getElementById("passwd").value = data.contrasena;
     })
     .catch(error => {
         console.error("Error capturat:", error);
         alert("Error en el registro");
     });
-    document.getElementById('registerForm').addEventListener('submit', function(event) {
+    document.getElementById('regForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
 
         // Collect the input values
         const user = document.getElementById('user').value;
-        const ncompleto = document.getElementById('ncompleto').value;
-        const fnacimiento = document.getElementById('fnacimiento').value;
-        const contrasena = document.getElementById('contrasena').value;
+        const ncompleto = document.getElementById('fullname').value;
+        const fnacimiento = document.getElementById('bday').value;
+        const email = document.getElementById('mail').value;
+        const contrasena = document.getElementById('passwd').value;
 
         // Prepare the data to be sent in the request
         const registerData = {
             user: user,
             ncompleto: ncompleto,
+            email: email,
             fnacimiento: fnacimiento,
             contrasena: contrasena
         };
+        console.log("Datos a enviar:", registerData);
 
         // Send the data to the API via a POST request
         fetch("http://127.0.0.1:8000/usuarios/register", {
