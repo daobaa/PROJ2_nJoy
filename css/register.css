@@ -78,6 +78,12 @@
 #butt_back{
     margin-top: 0px;
 }
-a{
+.backLinkWrapper {
+    text-align: center;
+    width: 100%;
+}
+
+#backLink {
     display: inline-block;
+    padding: 0 10px;
 }

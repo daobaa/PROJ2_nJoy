@@ -17,10 +17,11 @@ html, body{
     background-color: #c3ebff;
 }
 a{
-    display: inline;
+    display: inline-block;
     width: auto;
     text-decoration: none;
     color: inherit;
+    padding: 0;
 }
 .header-logo{
     float: left;
