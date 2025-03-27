@@ -7,11 +7,15 @@ document.addEventListener("DOMContentLoaded", function () {
         return response.json();
     })
     .then(data => {
-        document.getElementById("user").value = data.user;
-        document.getElementById("fullname").value = data.ncompleto;
-        document.getElementById("bday").value = data.fnacimiento;
-        document.getElementById("mail").value = data.email;
-        document.getElementById("passwd").value = data.contrasena;
+        console.log("Received data from server:", data);
+
+        if(data.user) document.getElementById("user").value = data.user;
+        if(data.ncompleto) document.getElementById("fullname").value = data.ncompleto;
+        if(data.fnacimiento){
+            document.getElementById("bday").value = new Date(data.fnacimiento).toISOString().split("T")[0];
+        }
+        if(data.email) document.getElementById("mail").value = data.email;
+        if(data.contrasena) document.getElementById("passwd").value = data.contrasena;
     })
     .catch(error => {
         console.error("Error capturat:", error);
@@ -29,27 +33,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Prepare the data to be sent in the request
         const registerData = {
-            user: user,
-            ncompleto: ncompleto,
-            email: email,
-            fnacimiento: fnacimiento,
-            contrasena: contrasena
+            user,
+            ncompleto,
+            email,
+            fnacimiento,
+            contrasena
         };
         console.log("Datos a enviar:", registerData);
 
         // Send the data to the API via a POST request
         fetch("http://127.0.0.1:8000/usuarios/register", {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(registerData) // Convert data to JSON string
+            headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify(registerData)
         })
-        .then(response => {
+        .then(async response => {
+            const data = await response.json();
+            console.error("FastAPI response:", JSON.stringify(data, null, 2));
             if (!response.ok) {
-                throw new Error("Error al registrar el usuario");
+                throw new Error(`Error: ${JSON.stringify(data)}`);
             }
-            return response.json(); // Assuming the API responds with a JSON message
+            return data;
         })
         .then(responseData => {
             console.log("Usuario registrado con éxito", responseData);
