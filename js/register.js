@@ -49,14 +49,13 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(async response => {
             const data = await response.json();
-            console.error("FastAPI response:", JSON.stringify(data, null, 2));
             if (!response.ok) {
                 throw new Error(`Error: ${JSON.stringify(data)}`);
             }
             return data;
         })
         .then(responseData => {
-            console.log("Usuario registrado con éxito", responseData);
+            console.log("Usuario registrado con éxito");
             alert("Registro exitoso");
         })
         .catch(error => {
