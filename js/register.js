@@ -1,4 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
+    function BackEventListener(){
+        const backLink = document.getElementById("backLink");
+    
+        backLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            window.location.href = "../html/index.html";
+        });
+    }
+    window.addEventListener("load", BackEventListener);
+
     fetch("http://127.0.0.1:8000/")
     .then(response => {
         if (!response.ok) {
