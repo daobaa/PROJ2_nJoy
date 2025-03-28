@@ -78,11 +78,12 @@
 #butt_back{
     margin-top: 0px;
 }
+
+/* BackLink CSS */
 .backLinkWrapper {
     text-align: center;
     width: 100%;
 }
-
 #backLink {
     display: inline-block;
     padding: 0 10px;

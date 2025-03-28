@@ -41,6 +41,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const email = document.getElementById('mail').value;
         const contrasena = document.getElementById('passwd').value;
 
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if(!emailPattern.test(email)){
+            alert("Por favor, introduce un correo válido");
+            return;
+        }
+
         // Prepare the data to be sent in the request
         const registerData = {
             user,
@@ -65,34 +72,40 @@ document.addEventListener("DOMContentLoaded", function () {
             return data;
         })
         .then(responseData => {
-            console.log("Usuario registrado con éxito");
+            console.log("Usuario registrado con éxito", responseData);
             alert("Registro exitoso");
         })
-        .catch(error => {
+        .catch(async error => {
             console.error("Error al registrar:", error);
+            try {
+                errorData = JSON.parse(error.message.replace("Error: ", ""));
+        
+                if(errorData?.detail === "Username already registered"){
+                    alert("El nombre de usuario ya está en uso. Por favor, elige otro.");
+                    return;
+                }
+
+                const passwordError = errorData.detail?.find(err => err.loc.includes("contrasena") && err.type === "string_too_short");
+
+                if (passwordError) {
+                    alert("La contraseña ha de tener un mínimo de 8 caracteres.");
+                    return;
+                }
+            } catch (e) {
+                console.error("Error parsing response:", e);
+            }
+        
             alert("Error en el registro");
         });
     });
+    document.getElementById("confirm_passwd").addEventListener('input', function() {
+        const passwd = document.getElementById("passwd").value;
+        const confirmPassword = this.value;
+
+        if(passwd != confirmPassword){
+            this.setCustomValidity("Las contraseñas no coinciden");
+        } else{
+            this.setCustomValidity("");
+        }
+    });
 });
-
-// document.addEventListener("DOMContentLoaded", function() {
-//     const form = document.getElementById("regForm");
-//     const password = document.getElementById("passwd");
-//     const confirmPassword = document.getElementById("confirm_passwd");
-//     const backLink = document.getElementById("backLink");
-
-//     backLink.addEventListener("click", function(event) {
-//         event.preventDefault();
-//         window.location.href = "../html/index.html";
-//     });
-
-//     form.addEventListener("submit", function(event) {
-//         if(password.value !== confirmPassword.value) {
-//             event.preventDefault();
-//             alert("Las contraseñas no coinciden. Intentalo de nuevo.");
-//             confirmPassword.focus();
-//         } else {
-//             alert("¡se ha registrado con exito!");
-//         }
-//     });
-// });
