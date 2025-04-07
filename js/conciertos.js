@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const track = document.querySelectorAll(".concerts-display");
+    const tracks = document.querySelectorAll(".concerts-display");
     const imgWidth = 110;
     const imgVisible = 5;
     const imgTotal = 10;
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         
         (function startInterval(){
-            setInterval(moveCarrusel, 5000);
+            setInterval(moveCarrusel, 2000);
         })();
     });
 

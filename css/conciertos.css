@@ -3,6 +3,7 @@
     overflow: hidden;
     border: 1px solid black;
     margin: auto;
+    background-color: #81CFC3;
 }
 .concerts-display{
     display: flex;
