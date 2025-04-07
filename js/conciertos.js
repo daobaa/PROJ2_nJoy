@@ -33,7 +33,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 genContainer.className = "major-container";
 
                 const genH2 = document.createElement("h2");
-                genH2.textContent = genero.nombre;    
+
+                const genLink = document.createElement("a");
+                genLink.href = `./generos.html#${genero.id}`;
+                genLink.textContent = genero.nombre;
+                genH2.appendChild(genLink);
+
+
 
                 const genDiv = document.createElement("div");
                 genDiv.className = "concerts-container";
@@ -52,10 +58,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 genContainer.appendChild(genH2);
                 genContainer.appendChild(genDiv);
                 mainBodyDiv.appendChild(genContainer);
+
+                const tracks = document.querySelectorAll(".concerts-display");
                 const imgWidth = 176;
                 const imgVisible = 5;
                 const imgTotal = 10;
-                const tracks = document.querySelectorAll(".concerts-display");
             
                 tracks.forEach(track => {
                     let index = 0;

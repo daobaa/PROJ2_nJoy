@@ -1,13 +1,25 @@
 .major-container{
+    display: flex;
+    align-items: center;
     background-color: #81CFC3;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+.major-container h2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 150px;
+    margin-right: 50px;
+    margin-left: 50px;
+    white-space: nowrap;
 }
 .concerts-container{
     width: 880px;
     overflow: hidden;
     border: 1px solid black;
-    margin: auto;
+    margin-right: auto;
     background-color: #DAFDBA;
 }
 .concerts-display{
