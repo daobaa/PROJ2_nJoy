@@ -45,12 +45,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 const displayDiv = document.createElement("div");
                 displayDiv.className = "concerts-display";
 
-                for (let i = 0; i < 10; i++) {
+                const eventosGenero = eventos.filter(evento => evento.genero === genero.id);
+                eventosGenero.forEach((evento, index) =>{
                     const img = document.createElement("img");
                     img.src = "../img/logo.png";
-                    img.alt = `imagen${i + 1}`;
+                    img.alt = `evento ${evento.id}`;
                     displayDiv.appendChild(img);
-                }
+                });
 
                 genDiv.append(displayDiv);
                 genContainer.appendChild(genH2);
@@ -60,13 +61,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 const tracks = document.querySelectorAll(".concerts-display");
                 const imgWidth = 176;
                 const imgVisible = 5;
-                const imgTotal = 10;
 
                 tracks.forEach(track => {
                     let index = 0;
                     function moveCarrusel() {
                         index++;
-                        if (index > imgTotal - imgVisible) {
+                        if (index > eventosGenero.length - imgVisible) {
                             index = 0;
                         }
                         track.style.transform = `translateX(-${index * imgWidth}px)`;

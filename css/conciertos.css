@@ -32,3 +32,12 @@
     height: auto;
     margin: 10px;
 }
+h2 a{
+    display: inline-block;
+    padding: 20px 40px;
+    background-color: #6ba9a0;
+    transition: opacity 0.5 ease;
+}
+h2 a:hover{
+    opacity: 0.5;
+}
