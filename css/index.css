@@ -52,6 +52,40 @@ a{
 .header-links h3{
     margin: 0;
 }
+/* WHEN USER LOGGED */
+.profile-link {
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.dropdown-menu a {
+    color: #007bff;
+    text-decoration: none;
+    padding: 8px;
+    display: block;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}
+
+.profile-link:hover + .dropdown-menu {
+    display: block;
+}
+
 /*BODY GENERAL*/
 .main-body{
     width: 88%;
