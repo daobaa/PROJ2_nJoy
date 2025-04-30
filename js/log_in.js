@@ -56,6 +56,9 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .then(responseData => {
                 console.log("Usuario accedido con éxito", responseData);
+
+                localStorage.setItem("usuario", JSON.stringify(responseData));
+
                 alert("Inicio de sesión exitoso");
                 window.location.href = "../html/index.html";
             })
