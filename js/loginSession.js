@@ -1,12 +1,15 @@
 document.addEventListener("DOMContentLoaded", function() {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
+    console.log(usuario);
     const authLinks = document.getElementById("auth-links");
     const userProfileElement = document.getElementById("user-profile");
 
     if(usuario){
         const profileLink = document.createElement("a");
         profileLink.href = "#";
-        profileLink.textContent = `Hola, ${usuario.username}`;
+        const profileText = document.createElement("h3");
+        profileText.textContent = `Hola, ${usuario.username}`;
+        profileLink.appendChild(profileText);
         profileLink.classList.add("profile-link");
 
         const dropDown = document.createElement("div");
@@ -14,7 +17,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const logoutOption = document.createElement("a");
         logoutOption.href = "#";
-        logoutOption.textContent = "Cerrar sesión";
+        const logoutText = document.createElement("h3");
+        logoutText.textContent = "Cerrar sesión";
+        logoutOption.appendChild(logoutText);
         logoutOption.addEventListener("click", () =>{
             localStorage.removeItem("usuario");
             window.location.href = "index.html";
