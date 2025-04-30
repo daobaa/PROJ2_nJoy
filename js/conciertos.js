@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Primero, obtenemos los eventos
     fetch("http://127.0.0.1:8000/eventos/")
     .then(response => {
         if (!response.ok) {
@@ -46,10 +45,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const eventosGenero = eventos.filter(evento => evento.genero === genero.id);
                 eventosGenero.forEach((evento, index) =>{
+                    const imgLink = document.createElement("a");
+                    imgLink.href = `./eventoID.html?id=${evento.id}`;
+
                     const img = document.createElement("img");
                     img.src = "../img/logo.png";
                     img.alt = `evento ${evento.id}`;
-                    displayDiv.appendChild(img);
+
+                    imgLink.appendChild(img);
+                    displayDiv.appendChild(imgLink);
                 });
 
                 genDiv.append(displayDiv);
