@@ -1,0 +1,15 @@
+.minorcont{
+    display: flex;
+    flex-direction: column;
+    background-color: #DAFDBA;
+    height: 550px;
+    padding: 20px;
+    gap: 20px;
+}
+.minorcont p{
+    font-size: 18px;
+}
+.minorcont button{
+    align-self: flex-start;
+    width: auto;
+}

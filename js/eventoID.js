@@ -17,22 +17,26 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(evento => {
             const container = document.getElementById("main-body");
 
+            const minorcont = document.createElement("div");
+            minorcont.classList.add("minorcont");
+
             const titulo = document.createElement("h1");
             titulo.textContent = evento.nombre;
+
+            const descripcion = document.createElement("p");
+            descripcion.textContent = evento.descripcion || "Sin descripción";
 
             const fecha = document.createElement("p");
             fecha.textContent = `Fecha: ${evento.fechayhora}`;
 
             const recinto = document.createElement("p");
             recinto.textContent = `Lugar: ${evento.recinto}`;
-
-            const descripcion = document.createElement("p");
-            descripcion.textContent = evento.descripcion || "Sin descripción";
             
             const plazas = document.createElement("p");
             plazas.textContent = `Plazas disponibles: ${evento.plazas}`;
-
-            container.append(titulo, fecha, recinto, descripcion, plazas);
+            
+            container.append(minorcont);
+            minorcont.append(titulo, descripcion, fecha, recinto, plazas);
 
             fetch(`http://127.0.0.1:8000/localidades/${evento.localidad_id}`)
                 .then(response => {
@@ -44,14 +48,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then(localidad => {
                     const lugar = document.createElement("p");
                     lugar.textContent = `Localidad: ${localidad.ciudad}`;
-                    container.appendChild(lugar);
+                    minorcont.appendChild(lugar);
 
                     const paymentBoton = document.createElement("button");
                     paymentBoton.textContent = "Comprar Entrada";
                     paymentBoton.addEventListener("click", () => {
                         window.location.href = `pago.html?id=${evento.id}`;
                     });
-                    container.appendChild(paymentBoton);
+                    minorcont.appendChild(paymentBoton);
                 })
                 .catch(error => {
                     console.error("Error al obtener la localidad:", error);
