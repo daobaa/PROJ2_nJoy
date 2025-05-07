@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     let currentDate = new Date().toISOString();
+    let usuario = JSON.parse(localStorage.getItem("usuario"));
+    let idUser = usuario.user_id;
 
     fetch("http://127.0.0.1:8000/pagos/", {
         method: "POST",
@@ -15,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            usuario_id: "ejemplo",
+            usuario_id: idUser,
             metodo_pago: "ejemplo",
             total: paymentMethod,
             fecha: currentDate,
@@ -72,6 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             container.append(minorcont);
             minorcont.append(payment1, payment2, payment3, price, assignedto);
+            payment1.addEventListener("click", function(){
+                
+            });
         })
         .catch(error => {
             document.getElementById("main-body").textContent = "Error al cargar el pago.";
