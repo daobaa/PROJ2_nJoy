@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("http://127.0.0.1:8000/eventos/")
+    fetch("http://127.0.0.1:8000/evento/")
     .then(response => {
         if (!response.ok) {
             throw new Error("Error con la conexión al servidor de eventos");
@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(eventos => {
         console.log("Eventos recibidos:", eventos);
 
-        const generosDeEventos = new Set(eventos.map(evento => evento.genero));
+        const generosDeEventos = new Set(eventos.map(evento => evento.genero_id));
 
-        fetch("http://127.0.0.1:8000/generos")
+        fetch("http://127.0.0.1:8000/genero")
         .then(response => {
             if (!response.ok) {
                 throw new Error("Error al obtener los géneros");
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const displayDiv = document.createElement("div");
                 displayDiv.className = "concerts-display";
 
-                const eventosGenero = eventos.filter(evento => evento.genero === genero.id);
+                const eventosGenero = eventos.filter(evento => evento.genero_id === genero.id);
                 eventosGenero.forEach((evento, index) =>{
                     const imgLink = document.createElement("a");
                     imgLink.href = `./eventoID.html?id=${evento.id}`;
