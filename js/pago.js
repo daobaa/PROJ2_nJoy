@@ -20,21 +20,17 @@ document.addEventListener("DOMContentLoaded", () => {
             return response.json();
         })
         .then(evento => {
-            let paymentMethod;
+            let priceType = 0;
 
-            if(evento.categoria_precio == "Económico"){
-                paymentMethod = 5;
-            } else if(evento.categoria_precio == "Básico"){
-                paymentMethod = 10;
-            } else if(evento.categoria_precio == "Estándar"){
-                paymentMethod = 15;
-            } else if(evento.categoria_precio == "Premium"){
-                paymentMethod = 20;
-            } else if(evento.categoria_precio == "VIP"){
-                paymentMethod = 25;
+            if(evento.categoria_precio == "Alta"){
+                priceType = 15;
+            } else if(evento.categoria_precio == "Media"){
+                priceType = 10;
+            } else if(evento.categoria_precio == "Baja"){
+                priceType = 5;
             }
 
-            const container = document.getElementsByClassName("main-body")[0];
+            const container = document.querySelector(".main-body");
 
             const minorcont = document.createElement("div");
             minorcont.classList.add("minorcont");
@@ -52,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
             payment3.textContent = "Paypal";
 
             const price = document.createElement("p");
-            price.textContent = `Precio: ${paymentMethod} €`;
+            price.textContent = `Precio: ${priceType} €`;
             
             const assignedto = document.createElement("p");
 
@@ -76,42 +72,71 @@ document.addEventListener("DOMContentLoaded", () => {
             paymentButton.textContent = "Confirmar Pago";
             minorcont.append(paymentButton);
 
+
+
             paymentButton.addEventListener("click", function(){
                 if(!metodo_pago){
                     alert("Por favor, selecciona un metodod de pago.")
                     return;
                 }
 
-                fetch("http://127.0.0.1:8000/pago/", {
+                fetch("http://127.0.0.1:8000/ticket/", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
+                        evento_id: eventoId,
                         usuario_id: idUser,
-                        metodo_pago: metodo_pago,
-                        total: paymentMethod,
-                        fecha: currentDate,
-                        ticket_id: 1,
+                        activado: true
                     })
                 })
-                .then(pago => {
+                .then(response => {
                     if(!response.ok){
-                        throw new Error("Error al procesar el pago");
+                        throw new Error("Error al crear el ticket");
                     }
                     return response.json();
                 })
-                .then(pago => {
-                    console.log("Pago procesado correctamente", pago);
+                .then(ticket => {
+                    console.log("Ticket creado correctamente", ticket);
+
+                    const ticketId = ticket.id;
+
+                    fetch("http://127.0.0.1:8000/pago/", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            usuario_id: idUser,
+                            metodo_pago: metodo_pago,
+                            total: priceType,
+                            fecha: currentDate,
+                            ticket_id: ticketId,
+                        })
+                    })
+                    .then(response => {
+                        if(!response.ok){
+                            throw new Error("Error al procesar el pago");
+                        }
+                        return response.json();
+                    })
+                    .then(pago => {
+                        console.log("Pago procesado correctamente", pago);
+                    })
+                    .catch(error => {
+                        document.getElementById("main-body").textContent = "Error al procesar el pago";
+                        console.error(error);
+                    });
                 })
                 .catch(error => {
-                    document.getElementById("main-body").textContent = "Error al procesar el pago";
+                    document.getElementsByClassName("main-body").textContent = "Error al procesar el ticket";
                     console.error(error);
                 });
             });
         })
         .catch(error => {
-            document.getElementById("main-body").textContent = "Error al cargar el evento.";
+            document.getElementsByClassName("main-body").textContent = "Error al cargar el evento.";
             console.error(error);
         });
 });
