@@ -3,13 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const eventoId = params.get("id");
 
     if(!eventoId){
-        document.getElementById("main-body").textContent = "No se especificó un evento.";
+        document.querySelector(".main-body").textContent = "No se especificó un evento.";
         return;
     }
-
-    let currentDate = new Date().toISOString();
     let usuario = JSON.parse(localStorage.getItem("usuario"));
-    let idUser = usuario.user_id;
+    let idUser = usuario.id;
     let metodo_pago = "";
 
     fetch(`http://127.0.0.1:8000/evento/${eventoId}`)
@@ -51,9 +49,10 @@ document.addEventListener("DOMContentLoaded", () => {
             price.textContent = `Precio: ${priceType} €`;
             
             const assignedto = document.createElement("p");
+            assignedto.textContent = "Metodo seleccionado:";
 
             container.append(minorcont);
-            minorcont.append(payment1, payment2, payment3, price, assignedto)
+            minorcont.append(assignedto, payment1, payment2, payment3, price)
 
             payment1.addEventListener("click", function(){
                 metodo_pago = "Visa";
@@ -75,11 +74,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             paymentButton.addEventListener("click", function(){
+                let currentDate = new Date().toISOString();
                 if(!metodo_pago){
                     alert("Por favor, selecciona un metodod de pago.")
                     return;
                 }
-
+                console.log({
+                    evento_id: eventoId,
+                    usuario_id: idUser,
+                    activado: true
+                });
                 fetch("http://127.0.0.1:8000/ticket/", {
                     method: "POST",
                     headers: {
@@ -93,7 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
                 .then(response => {
                     if(!response.ok){
-                        throw new Error("Error al crear el ticket");
+                        return response.text().then(text => {
+                            throw new Error(`Error al crear el ticket: ${text}`);
+                        });
                     }
                     return response.json();
                 })
@@ -125,18 +131,18 @@ document.addEventListener("DOMContentLoaded", () => {
                         console.log("Pago procesado correctamente", pago);
                     })
                     .catch(error => {
-                        document.getElementById("main-body").textContent = "Error al procesar el pago";
+                        document.querySelector(".main-body").textContent = "Error al procesar el pago";
                         console.error(error);
                     });
                 })
                 .catch(error => {
-                    document.getElementsByClassName("main-body").textContent = "Error al procesar el ticket";
+                    container.textContent = "Error al procesar el ticket";
                     console.error(error);
                 });
             });
         })
         .catch(error => {
-            document.getElementsByClassName("main-body").textContent = "Error al cargar el evento.";
+            document.querySelector(".main-body").textContent = "Error al cargar el evento.";
             console.error(error);
         });
 });
