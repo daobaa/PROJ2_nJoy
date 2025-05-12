@@ -8,23 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
     window.addEventListener("load", BackEventListener);
-
-    fetch("http://127.0.0.1:8000/")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Error with server connection");
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Received data from server:", data);
-
-            if(data.email) document.getElementById("mail").value = data.email;
-            if(data.contrasena) document.getElementById("passwd").value = data.contrasena;
-        })
-        .catch(error => {
-            console.error("Error capturat:", error);
-        });
     
     const loginForm = document.getElementById("logForm");
     if(loginForm){
@@ -39,13 +22,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            const formData = new FormData();
-            formData.append("email", email);
-            formData.append("password", contrasena);
-
-            fetch("http://127.0.0.1:8000/usuarios/login", {
+            fetch("http://127.0.0.1:8000/login", {
                 method: 'POST',
-                body: formData
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: email,
+                    contrasena: contrasena
+                })
             })
             .then(async response => {
                 const data = await response.json();
@@ -62,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Inicio de sesión exitoso");
                 window.location.href = "../html/index.html";
             })
-            .catch(async error => {
+            .catch(error => {
                 console.error("Error al registrar:", error);
                 try {
                     const errorData = JSON.parse(error.message);
