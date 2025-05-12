@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const profileLink = document.createElement("a");
         profileLink.href = "#";
         const profileText = document.createElement("h3");
-        profileText.textContent = `Hola, ${usuario.username}`;
+        profileText.textContent = `Hola, ${usuario.ncompleto}`;
         profileLink.appendChild(profileText);
         profileLink.classList.add("profile-link");
 
