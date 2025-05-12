@@ -129,6 +129,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     })
                     .then(pago => {
                         console.log("Pago procesado correctamente", pago);
+
+                        container.innerHTML = "";
+
+                        const paySuccesfuldiv = document.createElement("div");
+                        paySuccesfuldiv.classList.add("paySuccesful");
+                        const paySuccesfulp = document.createElement("p");
+                        paySuccesfulp.classList.add("payMessage");
+
+                        paySuccesfulp.textContent = "¡Gracias por comprar tu entrada!";
+
+                        container.append(paySuccesfuldiv);
+                        paySuccesfuldiv.append(paySuccesfulp);
                     })
                     .catch(error => {
                         document.querySelector(".main-body").textContent = "Error al procesar el pago";
