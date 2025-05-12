@@ -9,28 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     window.addEventListener("load", BackEventListener);
 
-    fetch("http://127.0.0.1:8000/")
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Error a la resposta del servidor");
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log("Received data from server:", data);
-
-        if(data.user) document.getElementById("user").value = data.user;
-        if(data.ncompleto) document.getElementById("fullname").value = data.ncompleto;
-        if(data.fnacimiento){
-            document.getElementById("bday").value = new Date(data.fnacimiento).toISOString().split("T")[0];
-        }
-        if(data.email) document.getElementById("mail").value = data.email;
-        if(data.contrasena) document.getElementById("passwd").value = data.contrasena;
-    })
-    .catch(error => {
-        console.error("Error capturat:", error);
-        alert("Error en el registro");
-    });
     document.getElementById('regForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
 
@@ -59,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Datos a enviar:", registerData);
 
         // Send the data to the API via a POST request
-        fetch("http://127.0.0.1:8000/usuarios/register", {
+        fetch("http://127.0.0.1:8000/register", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify(registerData)
@@ -74,6 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(responseData => {
             console.log("Usuario registrado con éxito", responseData);
             alert("Registro exitoso");
+
+            window.location.href = "../html/log_in.html";
         })
         .catch(async error => {
             console.error("Error al registrar:", error);
