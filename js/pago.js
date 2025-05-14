@@ -2,11 +2,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams(window.location.search);
     const eventoId = params.get("id");
 
+    const container = document.querySelector(".main-body");
+
+
     if(!eventoId){
         document.querySelector(".main-body").textContent = "No se especificó un evento.";
         return;
     }
     let usuario = JSON.parse(localStorage.getItem("usuario"));
+
+    if(!usuario){
+        container.innerHTML = "";
+
+        const mensaje = document.createElement("p");
+        mensaje.textContent = "Inicia sesión para comprar tu entrada.";
+
+        const btnLogin = document.createElement("button");
+        btnLogin.textContent = "Iniciar sesión";
+        btnLogin.addEventListener("click", () => {
+            window.location.href = "log_in.html";
+        });
+
+        container.append(mensaje, btnLogin);
+        return;
+    }
+
     let idUser = usuario.id;
     let metodo_pago = "";
 
@@ -27,8 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if(evento.categoria_precio == "Baja"){
                 priceType = 5;
             }
-
-            const container = document.querySelector(".main-body");
 
             const minorcont = document.createElement("div");
             minorcont.classList.add("minorcont");
