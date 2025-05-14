@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(eventos => {
         console.log("Eventos recibidos:", eventos);
 
-        const generosDeEventos = new Set(eventos.map(evento => evento.genero_id));
+        const conciertos = eventos.filter(evento => evento.tipo === "Concierto");
+        const generosDeEventos = new Set(conciertos.map(evento => evento.genero_id));
 
         fetch("http://127.0.0.1:8000/genero")
         .then(response => {
@@ -43,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const displayDiv = document.createElement("div");
                 displayDiv.className = "concerts-display";
 
-                const eventosGenero = eventos.filter(evento => evento.genero_id === genero.id);
+                const eventosGenero = conciertos.filter(evento => evento.genero_id === genero.id);
                 eventosGenero.forEach((evento, index) =>{
                     const imgLink = document.createElement("a");
                     imgLink.href = `./eventoID.html?id=${evento.id}`;
@@ -86,7 +87,4 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error al leer géneros:", error);
         });
     })
-    .catch(error => {
-        console.error("Error con los eventos:", error);
-    });
 });
