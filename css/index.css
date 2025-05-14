@@ -95,3 +95,9 @@ a{
 .main-body .main-body-center{
     text-align: center;
 }
+.no-select{
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
