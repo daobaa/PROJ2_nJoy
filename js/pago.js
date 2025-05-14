@@ -102,14 +102,23 @@ document.addEventListener("DOMContentLoaded", () => {
             payment1.addEventListener("click", function(){
                 metodo_pago = "Visa";
                 console.log("Metodod de pago seleccionado:", metodo_pago);
+                payment1.classList.add("selected");
+                payment2.classList.remove("selected");
+                payment3.classList.remove("selected");
             });
             payment2.addEventListener("click", function(){
                 metodo_pago = "Mastercard";
                 console.log("Metodod de pago seleccionado:", metodo_pago);
+                payment1.classList.remove("selected");
+                payment2.classList.add("selected");
+                payment3.classList.remove("selected");
             });
             payment3.addEventListener("click", function(){
                 metodo_pago = "Paypal";
                 console.log("Metodod de pago seleccionado:", metodo_pago);
+                payment1.classList.remove("selected");
+                payment2.classList.remove("selected");
+                payment3.classList.add("selected");
             });
 
             const paymentButton = document.createElement("button");
