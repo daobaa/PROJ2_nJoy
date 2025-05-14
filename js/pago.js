@@ -106,47 +106,44 @@ document.addEventListener("DOMContentLoaded", () => {
                     alert("Por favor, selecciona un metodod de pago.")
                     return;
                 }
-                console.log({
-                    evento_id: eventoId,
-                    usuario_id: idUser,
-                    activado: true
-                });
-                fetch("http://127.0.0.1:8000/ticket/", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        evento_id: eventoId,
-                        usuario_id: idUser,
-                        activado: true
-                    })
-                })
-                .then(response => {
-                    if(!response.ok){
-                        return response.text().then(text => {
-                            throw new Error(`Error al crear el ticket: ${text}`);
-                        });
-                    }
-                    return response.json();
-                })
-                .then(ticket => {
-                    console.log("Ticket creado correctamente", ticket);
 
-                    const ticketId = ticket.id;
+                if(ticketCount > evento.plazas){
+                    alert(`No hay suficientes plazas disponibles. Quedan solo ${evento.plazas} entradas.`);
+                    return;
+                }
 
-                    fetch("http://127.0.0.1:8000/pago/", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            usuario_id: idUser,
-                            metodo_pago: metodo_pago,
-                            total: currentPrice * ticketCount,
-                            fecha: currentDate,
-                            ticket_id: ticketId,
+                let ticketPromises = [];
+
+                for(let i = 0; i < ticketCount; i++){
+                    ticketPromises.push(
+                        fetch("http://127.0.0.1:8000/ticket/", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                evento_id: eventoId,
+                                usuario_id: idUser,
+                                activado: true
+                            })
+                        }).then(response => {
+                            if(!response.ok){
+                                return response.text().then(text => {
+                                    throw new Error(`Error al crear el ticket: ${text}`);
+                                });
+                            }
+                            return response.json();
                         })
+                    );
+                }
+
+                Promise.all(ticketPromises)
+                    .then(tickets => {
+                        console.log("Tickets creados correctamente", tickets);
+
+                        const ticketID = tickets[0].id;
+
+                        return fetch(`http://127.0.0.1:8000/evento/${eventoId}`);
                     })
                     .then(response => {
                         if(!response.ok){
@@ -154,8 +151,35 @@ document.addEventListener("DOMContentLoaded", () => {
                         }
                         return response.json();
                     })
-                    .then(pago => {
-                        console.log("Pago procesado correctamente", pago);
+                    .then(evento => {
+                        const plazasRestantes = evento.plazas - ticketCount;
+
+                        if(plazasRestantes < 0){
+                            alert(`No hay suficientes plazas disponibles. Quedan solo ${evento.plazas} entradas.`);
+                            return;
+                        }
+
+                        const eventoActualizado = {
+                            ...evento,
+                            plazas: plazasRestantes
+                        };
+
+                        return fetch(`http://127.0.0.1:8000/evento/${eventoId}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(eventoActualizado)
+                        });
+                    })
+                    .then(response => {
+                        if(!response.ok){
+                            throw new Error("Error al actualizar las plazas del evento");
+                        }
+                        return response.json();
+                    })
+                    .then(updatedEvento => {
+                        console.log("Plazas actualizadas correctamente", updatedEvento);
 
                         container.innerHTML = "";
 
@@ -163,25 +187,15 @@ document.addEventListener("DOMContentLoaded", () => {
                         paySuccesfuldiv.classList.add("paySuccesful");
                         const paySuccesfulp = document.createElement("p");
                         paySuccesfulp.classList.add("payMessage");
-
                         paySuccesfulp.textContent = "¡Gracias por comprar tu entrada!";
-
-                        container.append(paySuccesfuldiv);
+                            
                         paySuccesfuldiv.append(paySuccesfulp);
+                        container.append(paySuccesfuldiv);
                     })
                     .catch(error => {
-                        document.querySelector(".main-body").textContent = "Error al procesar el pago";
-                        console.error(error);
+                        console.error("Error en el flujo del pago:", error);
+                        container.textContent = "Ocurrió un error al procesar la compra";
                     });
-                })
-                .catch(error => {
-                    container.textContent = "Error al procesar el ticket";
-                    console.error(error);
-                });
-            });
-        })
-        .catch(error => {
-            document.querySelector(".main-body").textContent = "Error al cargar el evento.";
-            console.error(error);
         });
+    });
 });
