@@ -65,9 +65,3 @@ html, body {
     font-size: 2rem;
     font-weight: bold;
 }
-.no-select{
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-}
