@@ -47,12 +47,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const price = document.createElement("p");
             price.textContent = `Precio: ${priceType} €`;
+
+            let ticketCount = 1;
+            let currentPrice = priceType;
+
+            const ticketCountDisplay = document.createElement("p");
+            ticketCountDisplay.textContent = `Nº de tickets: ${ticketCount}`;
+
+            const increaseBtn = document.createElement("button");
+            increaseBtn.textContent = "+";
+            const decreaseBtn = document.createElement("button");
+            decreaseBtn.textContent = "-";
+
+            function updatePriceDisplay() {
+                ticketCountDisplay.textContent = `Nº de tickets: ${ticketCount}`;
+                price.textContent = `Precio: ${currentPrice * ticketCount} €`;
+            }
+
+            increaseBtn.addEventListener("click", () => {
+                ticketCount++;
+                updatePriceDisplay();
+            });
+            decreaseBtn.addEventListener("click", () => {
+                if(ticketCount > 1){
+                    ticketCount--;
+                    updatePriceDisplay();
+                }
+            });
             
             const assignedto = document.createElement("p");
             assignedto.textContent = "Metodo seleccionado:";
 
             container.append(minorcont);
-            minorcont.append(assignedto, payment1, payment2, payment3, price)
+            minorcont.append(assignedto, payment1, payment2, payment3, price, ticketCountDisplay, decreaseBtn, increaseBtn)
 
             payment1.addEventListener("click", function(){
                 metodo_pago = "Visa";
@@ -116,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         body: JSON.stringify({
                             usuario_id: idUser,
                             metodo_pago: metodo_pago,
-                            total: priceType,
+                            total: currentPrice * ticketCount,
                             fecha: currentDate,
                             ticket_id: ticketId,
                         })
