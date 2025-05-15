@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("http://127.0.0.1:8000/evento/")
+    fetch("https://3.228.133.52:8000/evento/")
     .then(response => {
         if (!response.ok) {
             throw new Error("Error con la conexión al servidor de eventos");
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const festivales = eventos.filter(evento => evento.tipo === "Festival");
         const generosDeEventos = new Set(festivales.map(evento => evento.genero_id));
 
-        fetch("http://127.0.0.1:8000/genero")
+        fetch("https://3.228.133.52:8000/genero")
         .then(response => {
             if (!response.ok) {
                 throw new Error("Error al obtener los géneros");

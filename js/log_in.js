@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            fetch("http://127.0.0.1:8000/login", {
+            fetch("https://3.228.133.52:8000/login", {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"

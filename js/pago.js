@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let idUser = usuario.id;
     let metodo_pago = "";
 
-    fetch(`http://127.0.0.1:8000/evento/${eventoId}`)
+    fetch(`https://3.228.133.52:8000/evento/${eventoId}`)
         .then(response => {
             if(!response.ok){
                 throw new Error("Evento no encontrado");
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 for(let i = 0; i < ticketCount; i++){
                     ticketPromises.push(
-                        fetch("http://127.0.0.1:8000/ticket/", {
+                        fetch("https://3.228.133.52:8000/ticket/", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json"
@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         const ticketID = tickets[0].id;
 
-                        return fetch(`http://127.0.0.1:8000/evento/${eventoId}`);
+                        return fetch(`https://3.228.133.52:8000/evento/${eventoId}`);
                     })
                     .then(response => {
                         if(!response.ok){
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             plazas: plazasRestantes
                         };
 
-                        return fetch(`http://127.0.0.1:8000/evento/${eventoId}`, {
+                        return fetch(`https://3.228.133.52:8000/evento/${eventoId}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json"
