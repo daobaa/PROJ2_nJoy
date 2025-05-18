@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("http://3.228.133.52:8000/evento/")
+    fetch("https://3.228.133.52:8000/evento/")
     .then(response => {
         if (!response.ok) {
             throw new Error("Error con la conexión al servidor de eventos");
