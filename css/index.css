@@ -33,7 +33,9 @@ a{
 }
 #logo{
     height: 100%;
-    width: 150px;
+    width: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
     object-fit: cover;
     object-position: center 35%;
 }
