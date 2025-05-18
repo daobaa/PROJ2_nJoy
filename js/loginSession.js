@@ -15,6 +15,14 @@ document.addEventListener("DOMContentLoaded", function() {
         const dropDown = document.createElement("div");
         dropDown.classList.add("dropdown-menu");
 
+        const ticketPageOption = document.createElement("a");
+        ticketPageOption.href = "tickets.html";
+        const  ticketPageText = document.createElement("h3");
+        ticketPageText.textContent = "Ver mis tickets";
+        ticketPageOption.append(ticketPageText)
+
+        dropDown.appendChild(ticketPageOption)
+
         const logoutOption = document.createElement("a");
         logoutOption.href = "#";
         const logoutText = document.createElement("h3");
