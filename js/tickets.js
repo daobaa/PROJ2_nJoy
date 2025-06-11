@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     let idUser = usuario.id;
-    fetch("https://3.228.133.52:8000/ticket")
+    fetch("http://127.0.0.1:8000/ticket")
         .then(response => {
             if(!response.ok){
                 throw new Error("Error en la lectura de tickets");
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 rightNote.classList.add("ticket-note");
                 rightNote.textContent = "Entrega el QR con la app de nJoy";
 
-                fetch(`https://3.228.133.52:8000/evento/${ticket.evento_id}`)
+                fetch(`http://127.0.0.1:8000/evento/${ticket.evento_id}`)
                     .then(response => {
                         if(!response.ok){
                             throw new Error("Error obteniendo el evento");
@@ -56,8 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     })
                     .then(evento => {
                         leftInfo.innerHTML = `
-                            <h3>Entrada #${ticket.id}</h3>
-                            <p>Evento: ${evento.nombre}</p>
+                            <h3>Entrada para ${evento.nombre}</h3>
                             <p>Estado: ${ticket.activado ? "Activo" : "Inactivo"}</p>
                         `;
                         

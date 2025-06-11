@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
     
-    fetch(`https://3.228.133.52:8000/evento/${eventoId}`)
+    fetch(`http://127.0.0.1:8000/evento/${eventoId}`)
         .then(response => {
             if(!response.ok){
                 throw new Error("Evento no encontrado");
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
             container.append(minorcont);
             minorcont.append(titulo, descripcion, fecha, recinto, plazas);
 
-            fetch(`https://3.228.133.52:8000/localidad/${evento.localidad_id}`)
+            fetch(`http://127.0.0.1:8000/localidad/${evento.localidad_id}`)
                 .then(response => {
                     if(!response.ok){
                         throw new Error("Localidad no encontrada");

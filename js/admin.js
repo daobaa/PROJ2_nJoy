@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if(usuario.email == "admin@admin.com"){
         normalNav.innerHTML = "";
+        normalNav.style.backgroundColor = "pink";
 
         const logoGroup = document.createElement("a");
         logoGroup.href = "index.html";

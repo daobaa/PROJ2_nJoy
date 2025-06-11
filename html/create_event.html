@@ -3,9 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/index-main.css">
+    <link rel="stylesheet" href="../css/create_event.css">
+    <script src="../js/admin.js"></script>
+    <script src="../js/loginSession.js"></script>
+    <script src="../js/create_event.js"></script>
     <title>Crear Evento</title>
 </head>
-<body>
-    
+<body class="no-select">
+    <div class="main-header">
+        <a href="index.html">
+            <div class="header-logo">
+                <img id="logo" src="../img/logo.png" alt="logo-njoy">
+                <h1>nJoy</h1>
+            </div>
+        </a>
+        <div class="header-links">
+            <a href="conciertos.html"><h3>Conciertos</h3></a>
+            <a href="shows.html"><h3>Shows</h3></a>
+            <div id="auth-links">
+                <a href="log_in.html"><h3>Iniciar Sesión</h3></a>
+                <a href="register.html"><h3>Registrarse</h3></a>
+            </div>
+            <div id="user-profile"></div>
+        </div>
+    </div>
+    <div class="main-body">
+        <form id="create-event">
+            <label for="nombre">Nombre del evento: </label>
+            <input type="text" id="nombre"/>
+            <label for="descripcion">Descripción:</label>
+            <input type="text" id="descripcion"/>
+            <label for="localidad">Localidad: </label>
+            <select id="localidad"></select>
+            <label for="recinto">Recinto: </label>
+            <input type="text" id="recinto"/>
+            <label for="plazas">Plazas asignadas:</label>
+            <input type="number" id="plazas"/>
+            <label for="fechahora">Fecha y hora del evento: </label>
+            <input type="datetime-local" id="fechahora"/>
+            <label for="tipo">Tipo de evento: </label>
+            <select id="tipo"></select>
+            <label for="categoria">Categoria de precio: </label>
+            <select id="categoria"></select>
+            <label for="genero">Género del evento: </label>
+            <select id="genero"></select>
+            <label for="dni">DNI del organizador: </label>
+            <input type="text" id="dni"/>
+
+            <button type="submit">Crear Evento</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -1,0 +1,73 @@
+form#create-event {
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  margin: 40px auto;
+  padding: 30px 25px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+form#create-event label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+form#create-event input[type="text"],
+form#create-event input[type="number"],
+form#create-event input[type="datetime-local"],
+form#create-event select,
+form#create-event textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 20px;
+  border: 1.8px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+form#create-event input[type="text"]:focus,
+form#create-event input[type="number"]:focus,
+form#create-event input[type="datetime-local"]:focus,
+form#create-event select:focus,
+form#create-event textarea:focus {
+  border-color: #5a8dee;
+  outline: none;
+}
+
+form#create-event button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background-color: #5a8dee;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+form#create-event button[type="submit"]:hover {
+  background-color: #3f6fd1;
+}
+
+form#create-event textarea {
+  min-height: 90px;
+}
+
+@media (max-width: 480px) {
+  form#create-event {
+    padding: 20px 15px;
+  }
+}

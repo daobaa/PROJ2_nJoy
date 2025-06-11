@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Datos a enviar:", registerData);
 
         // Send the data to the API via a POST request
-        fetch("https://3.228.133.52:8000/register", {
+        fetch("http://127.0.0.1:8000/register", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify(registerData)
